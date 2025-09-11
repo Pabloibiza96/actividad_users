@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { NavbarComponent } from './shared/navbar/navbar';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
-  standalone: false,
-  styleUrl: './app.scss'
+  styleUrls: ['./app.scss'],
+  standalone: true,
+  imports: [RouterOutlet, NavbarComponent]
 })
-export class App {
-  protected title = 'actividad_users';
-}
+export class AppComponent {}

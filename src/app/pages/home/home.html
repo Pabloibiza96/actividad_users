@@ -1,0 +1,22 @@
+<div class="container py-4">
+  <h1 class="mb-3">Usuarios</h1>
+
+  <div *ngIf="loading" class="alert alert-info">Cargando...</div>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div class="col" *ngFor="let u of users">
+      <div class="card h-100">
+        <img [src]="u.image" class="card-img-top" [alt]="u.username">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ u.first_name }} {{ u.last_name }}</h5>
+          <p class="card-text small text-muted mb-4">{{ u.email }}</p>
+          <div class="mt-auto d-flex gap-2">
+            <a class="btn btn-outline-primary" [routerLink]="['/user', u.id]">Ver detalle</a>
+            <a class="btn btn-outline-secondary" [routerLink]="['/updateuser', u.id]">Actualizar</a>
+            <button class="btn btn-outline-danger" (click)="confirmDelete(u)">Borrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="container py-4">
+  <h2 class="mb-3">
+    {{ mode === 'create' ? 'Crear nuevo usuario' : 'Actualizar usuario' }}
+  </h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="row g-3">
+
+    <div class="col-md-6">
+      <label class="form-label">Nombre</label>
+      <input type="text" class="form-control" formControlName="first_name">
+      <div class="text-danger small" *ngIf="form.get('first_name')?.touched && form.get('first_name')?.invalid">
+        Obligatorio
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Apellidos</label>
+      <input type="text" class="form-control" formControlName="last_name">
+      <div class="text-danger small" *ngIf="form.get('last_name')?.touched && form.get('last_name')?.invalid">
+        Obligatorio
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Username</label>
+      <input type="text" class="form-control" formControlName="username">
+      <div class="text-danger small" *ngIf="form.get('username')?.touched && form.get('username')?.invalid">
+        Obligatorio
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" formControlName="email">
+      <div class="text-danger small" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+        Email inválido
+      </div>
+    </div>
+
+    <div class="col-md-6" *ngIf="mode === 'create'">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" formControlName="password">
+      <div class="text-danger small" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
+        Mínimo 5 caracteres
+      </div>
+    </div>
+
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit">
+        {{ mode === 'create' ? 'Guardar' : 'Actualizar' }}
+      </button>
+      <a class="btn btn-secondary ms-2" routerLink="/home">Cancelar</a>
+    </div>
+  </form>
+</div>

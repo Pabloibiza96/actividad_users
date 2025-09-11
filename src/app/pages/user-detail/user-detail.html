@@ -1,0 +1,22 @@
+<div class="container py-4" *ngIf="user as u">
+  <div class="row g-4">
+    <div class="col-md-4">
+      <img [src]="u.image" class="img-fluid rounded" [alt]="u.username">
+    </div>
+    <div class="col-md-8">
+      <h2>{{ u.first_name }} {{ u.last_name }}</h2>
+      <p class="mb-1"><strong>Username:</strong> {{ u.username }}</p>
+      <p class="mb-3"><strong>Email:</strong> {{ u.email }}</p>
+
+      <div class="d-flex gap-2">
+        <button class="btn btn-secondary" (click)="goBack()">Volver a listado</button>
+        <button class="btn btn-primary" (click)="goEdit()">Actualizar</button>
+        <button class="btn btn-danger" (click)="confirmDelete()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="container py-4">
+  <div class="alert alert-info">Cargando...</div>
+</div>
