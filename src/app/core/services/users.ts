@@ -8,7 +8,7 @@ interface GetAllResponse {
   per_page: number;
   total: number;
   total_pages: number;
-  data: User[];
+  results: User[];  
 }
 
 @Injectable({

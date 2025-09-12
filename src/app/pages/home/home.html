@@ -1,22 +1,58 @@
 <div class="container py-4">
-  <h1 class="mb-3">Usuarios</h1>
+  <h4 class="mb-4">Usuarios</h4>
 
   <div *ngIf="loading" class="alert alert-info">Cargando...</div>
 
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+  <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
     <div class="col" *ngFor="let u of users">
-      <div class="card h-100">
-        <img [src]="u.image" class="card-img-top" [alt]="u.username">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title">{{ u.first_name }} {{ u.last_name }}</h5>
-          <p class="card-text small text-muted mb-4">{{ u.email }}</p>
-          <div class="mt-auto d-flex gap-2">
-            <a class="btn btn-outline-primary" [routerLink]="['/user', u.id]">Ver detalle</a>
-            <a class="btn btn-outline-secondary" [routerLink]="['/updateuser', u.id]">Actualizar</a>
-            <button class="btn btn-outline-danger" (click)="confirmDelete(u)">Borrar</button>
-          </div>
+      <div class="card h-100 shadow-sm text-center p-3">
+        <img [src]="u.image" [alt]="u.username" class="user-avatar mx-auto mb-3">
+
+        <h6 class="fw-semibold mb-0">{{ u.first_name }} {{ u.last_name }}</h6>
+        <small class="text-muted d-block mb-3">{{ u.email }}</small>
+
+        <div class="d-flex justify-content-center gap-3 fs-5">
+          <a [routerLink]="['/user', u.id]" class="text-reset" title="Ver detalle">
+            <i class="bi bi-search"></i>
+          </a>
+          <a [routerLink]="['/updateuser', u.id]" class="text-reset" title="Actualizar">
+            <i class="bi bi-arrow-repeat"></i>
+          </a>
+          <button class="btn btn-link text-reset p-0" (click)="confirmDelete(u)" title="Borrar">
+            <i class="bi bi-trash"></i>
+          </button>
         </div>
       </div>
     </div>
   </div>
+    <nav class="d-flex justify-content-center mt-4" *ngIf="totalPages > 1">
+  <ul class="pagination pagination-sm mb-0">
+    <!-- Anterior -->
+    <li class="page-item" [class.disabled]="page === 1">
+      <button class="page-link" (click)="loadUsers(page - 1)" [disabled]="page === 1">
+        Anterior
+      </button>
+    </li>
+
+    <!-- Números -->
+    <li
+      class="page-item"
+      *ngFor="let _ of [].constructor(totalPages); let i = index"
+      [class.active]="page === i + 1"
+    >
+      <button class="page-link" (click)="loadUsers(i + 1)">
+        {{ i + 1 }}
+      </button>
+    </li>
+
+    <!-- Siguiente -->
+    <li class="page-item" [class.disabled]="page === totalPages">
+      <button class="page-link" (click)="loadUsers(page + 1)" [disabled]="page === totalPages">
+        Siguiente
+      </button>
+    </li>
+  </ul>
+</nav>
 </div>
+
+

@@ -15,14 +15,28 @@ export class HomeComponent implements OnInit {
   users: User[] = [];
   loading = false;
 
+  page = 1;
+  perPage = 6;         
+  totalPages = 3;
+
   constructor(private usersSvc: UsersService) {}
+
   ngOnInit(): void { this.loadUsers(); }
 
-  loadUsers(): void {
+  loadUsers(page = this.page): void {
     this.loading = true;
-    this.usersSvc.getAll(1, 100).subscribe({
-      next: (res: { data: User[] }) => { this.users = res.data; this.loading = false; },
-      error: () => { this.loading = false; alert('No se pudo cargar el listado'); }
+    this.page = Math.max(1, page); // evita valores < 1
+
+    this.usersSvc.getAll(this.page, this.perPage).subscribe({
+      next: (res: any) => {
+        this.users = res.results ?? [];
+        this.totalPages = res.total_pages ?? 1;   // 👈 clave para la paginación
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+        alert('No se pudo cargar el listado');
+      }
     });
   }
 
