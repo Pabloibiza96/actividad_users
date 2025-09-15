@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { UsersService } from '../../core/services/users';
-import { User } from '../../core/models/user.model';
+import { User } from '../../core/interfaces/user.model';
 
 @Component({
   selector: 'app-home',
@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
         alert('No se pudo cargar el listado');
       }
     });
+    console.log(this.users); // DEBUG
   }
 
   confirmDelete(u: User): void {

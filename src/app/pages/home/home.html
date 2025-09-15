@@ -1,21 +1,24 @@
 <div class="container py-4">
   <h4 class="mb-4">Usuarios</h4>
 
-  <div *ngIf="loading" class="alert alert-info">Cargando...</div>
+  @if (loading) {
+    <div class="alert alert-info">Cargando...</div>
+  }
 
   <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
-    <div class="col" *ngFor="let u of users">
-      <div class="card h-100 shadow-sm text-center p-3">
+    @for (u of users; track u._id) {
+    <div class="col">
+      <div class="card h-100 shadow-sm text-center p-3 d-flex flex-column">
         <img [src]="u.image" [alt]="u.username" class="user-avatar mx-auto mb-3">
 
         <h6 class="fw-semibold mb-0">{{ u.first_name }} {{ u.last_name }}</h6>
         <small class="text-muted d-block mb-3">{{ u.email }}</small>
 
-        <div class="d-flex justify-content-center gap-3 fs-5">
-          <a [routerLink]="['/user', u.id]" class="text-reset" title="Ver detalle">
+        <div class="d-flex justify-content-center gap-3 fs-5 mt-auto">
+          <a [routerLink]="['/user', u._id]" class="text-reset" title="Ver detalle">
             <i class="bi bi-search"></i>
           </a>
-          <a [routerLink]="['/updateuser', u.id]" class="text-reset" title="Actualizar">
+          <a [routerLink]="['/updateuser', u._id]" class="text-reset" title="Actualizar">
             <i class="bi bi-arrow-repeat"></i>
           </a>
           <button class="btn btn-link text-reset p-0" (click)="confirmDelete(u)" title="Borrar">
@@ -24,8 +27,10 @@
         </div>
       </div>
     </div>
+    }
   </div>
-    <nav class="d-flex justify-content-center mt-4" *ngIf="totalPages > 1">
+    @if (totalPages > 1) {
+    <nav class="d-flex justify-content-center mt-4">
   <ul class="pagination pagination-sm mb-0">
     <!-- Anterior -->
     <li class="page-item" [class.disabled]="page === 1">
@@ -35,15 +40,16 @@
     </li>
 
     <!-- Números -->
-    <li
-      class="page-item"
-      *ngFor="let _ of [].constructor(totalPages); let i = index"
-      [class.active]="page === i + 1"
-    >
-      <button class="page-link" (click)="loadUsers(i + 1)">
-        {{ i + 1 }}
-      </button>
-    </li>
+    @for (_ of [].constructor(totalPages); let i = $index) {
+      <li
+        class="page-item"
+        [class.active]="page === i + 1"
+      >
+        <button class="page-link" (click)="loadUsers(i + 1)">
+          {{ i + 1 }}
+        </button>
+      </li>
+    }
 
     <!-- Siguiente -->
     <li class="page-item" [class.disabled]="page === totalPages">
@@ -52,7 +58,7 @@
       </button>
     </li>
   </ul>
-</nav>
+    </nav>
+    }
 </div>
-
 

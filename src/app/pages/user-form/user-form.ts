@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UsersService } from '../../core/services/users';
-import { CreateUserRequest, UpdateUserRequest, User } from '../../core/models/user.model';
+import { CreateUserRequest, UpdateUserRequest, User } from '../../core/interfaces/user.model';
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.html',
   styleUrls: ['./user-form.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule]
+  imports: [CommonModule, ReactiveFormsModule, RouterLink]
 })
 export class UserFormComponent implements OnInit {
   mode: 'create' | 'edit' = 'create';
-  idToEdit?: number;
+  idToEdit?: string;
   loading = false;
 
 
@@ -31,18 +31,15 @@ export class UserFormComponent implements OnInit {
       last_name: ['', Validators.required],
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: [''] // solo requerido en create
+      image: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
     this.mode = (this.route.snapshot.data['mode'] ?? 'create') as 'create' | 'edit';
     if (this.mode === 'edit') {
-      this.idToEdit = Number(this.route.snapshot.paramMap.get('id'));
+  this.idToEdit = this.route.snapshot.paramMap.get('id') ?? undefined;
       this.prefill();
-    } else {
-      this.form.get('password')?.addValidators([Validators.required, Validators.minLength(5)]);
-      this.form.get('password')?.updateValueAndValidity();
     }
   }
 
@@ -55,7 +52,8 @@ export class UserFormComponent implements OnInit {
           first_name: u.first_name,
           last_name: u.last_name,
           username: u.username,
-          email: u.email
+          email: u.email,
+          image: u.image
         });
         this.loading = false;
       },

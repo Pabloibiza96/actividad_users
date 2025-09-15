@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { User, CreateUserRequest, UpdateUserRequest } from '../models/user.model';
+import { map, Observable } from 'rxjs';
+import { User, CreateUserRequest, UpdateUserRequest } from '../interfaces/user.model';
 
 interface GetAllResponse {
   page: number;
@@ -26,15 +26,25 @@ export class UsersService {
     return this.http.get<GetAllResponse>(this.base, { params });
   }
 
-  getById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.base}/${id}`);
+  getById(id: string | number): Observable<User> {
+    return this.http.get<any>(`${this.base}/${id}`).pipe(
+      map((res) => {
+        const user = res?.data ?? res?.result ?? res;
+        // Normaliza el campo id si viene como _id
+        if (user && user._id && !user.id) {
+          user.id = user._id;
+        }
+        return user;
+      })
+    );
+
   }
 
   create(payload: CreateUserRequest): Observable<User> {
     return this.http.post<User>(this.base, payload);
   }
 
-  update(id: number, payload: UpdateUserRequest): Observable<User> {
+  update(id: string | number, payload: UpdateUserRequest): Observable<User> {
     return this.http.put<User>(`${this.base}/${id}`, payload);
   }
 

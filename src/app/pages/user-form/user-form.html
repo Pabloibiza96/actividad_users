@@ -5,48 +5,49 @@
     <div>
       <label class="form-label">Nombre Usuario</label>
       <input type="text" class="form-control" formControlName="first_name">
-      <div class="form-text text-danger" *ngIf="form.get('first_name')?.touched && form.get('first_name')?.invalid">
-        Introduzca nombre de usuario
-      </div>
+      @if (form.get('first_name')?.touched && form.get('first_name')?.invalid) {
+        <div class="form-text text-danger">
+          Introduzca nombre de usuario
+        </div>
+      }
     </div>
 
     <div>
       <label class="form-label">Apellido Usuario</label>
       <input type="text" class="form-control" formControlName="last_name">
-      <div class="form-text text-danger" *ngIf="form.get('last_name')?.touched && form.get('last_name')?.invalid">
-        Introduzca apellido de usuario
-      </div>
+      @if (form.get('last_name')?.touched && form.get('last_name')?.invalid) {
+        <div class="form-text text-danger">
+          Introduzca apellido de usuario
+        </div>
+      }
     </div>
 
     <div>
       <label class="form-label">Email Usuario</label>
       <input type="email" class="form-control" formControlName="email">
-      <div class="form-text text-danger" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
-        Email inválido
-      </div>
+      @if (form.get('email')?.touched && form.get('email')?.invalid) {
+        <div class="form-text text-danger">
+          Email inválido
+        </div>
+      }
     </div>
 
     <div>
-      <label class="form-label">Username</label>
+      <label class="form-label">Imagen Usuario</label>
       <input type="text" class="form-control" formControlName="username">
-      <div class="form-text text-danger" *ngIf="form.get('username')?.touched && form.get('username')?.invalid">
-        Introduzca username
-      </div>
+      @if (form.get('username')?.touched && form.get('username')?.invalid) {
+        <div class="form-text text-danger">
+          Introduzca una imágen
+        </div>
+      }
     </div>
 
-    <div *ngIf="mode === 'create'">
-      <label class="form-label">Password</label>
-      <input type="password" class="form-control" formControlName="password">
-      <div class="form-text text-danger" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
-        Mínimo 5 caracteres
-      </div>
-    </div>
 
     <div class="mt-2">
       <button class="btn btn-primary" type="submit" [disabled]="form.invalid">
         {{ mode === 'create' ? 'Guardar' : 'Actualizar' }}
       </button>
-      <a class="btn btn-secondary ms-2" routerLink="/home">Cancelar</a>
+      <a class="btn btn-secondary ms-2" [routerLink]="['/home']">Cancelar</a>
     </div>
   </form>
 </div>
