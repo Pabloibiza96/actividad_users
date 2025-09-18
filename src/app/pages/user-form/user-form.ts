@@ -8,7 +8,7 @@ import { CreateUserRequest, UpdateUserRequest, User } from '../../core/interface
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.html',
-  styleUrls: ['./user-form.scss'],
+  styleUrls: ['./user-form.css'],
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink]
 })
@@ -29,7 +29,6 @@ export class UserFormComponent implements OnInit {
     this.form = this.fb.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       image: ['', Validators.required]
     });
@@ -51,7 +50,6 @@ export class UserFormComponent implements OnInit {
         this.form.patchValue({
           first_name: u.first_name,
           last_name: u.last_name,
-          username: u.username,
           email: u.email,
           image: u.image
         });
@@ -67,19 +65,32 @@ export class UserFormComponent implements OnInit {
     if (this.mode === 'create') {
       const payload = this.form.value as CreateUserRequest;
       this.usersSvc.create(payload).subscribe({
-        next: (u: User) => { alert(`Creado (mock) con ID ${u.id}`); this.router.navigate(['/home']); },
-        error: () => alert('No se pudo crear el usuario')
+        next: (u: User) => { 
+          console.log('[create] Respuesta de la API:', u);
+          alert(`Creado con ID ${u.id}`); 
+          this.router.navigate(['/home']); 
+        },
+        error: (err) => {
+          console.error('[create] Error de la API:', err);
+          alert('No se pudo crear el usuario');
+        }
       });
     } else {
       const payload: UpdateUserRequest = {
         first_name: this.form.value.first_name!,
         last_name: this.form.value.last_name!,
-        username: this.form.value.username!,
-        email: this.form.value.email!
+        email: this.form.value.email!,
+        image: this.form.value.image!
       };
       this.usersSvc.update(this.idToEdit!, payload).subscribe({
-        next: () => this.router.navigate(['/user', this.idToEdit]),
-        error: () => alert('No se pudo actualizar el usuario')
+        next: (response) => {
+          console.log('[update] Respuesta de la API:', response); // console.log para ver respuesta de la API
+          this.router.navigate(['/user', this.idToEdit]);
+        },
+        error: (err) => {
+          console.error('[update] Error de la API:', err); //respuesta de la API en caso de error
+          alert('No se pudo actualizar el usuario');
+        }
       });
     }
   }

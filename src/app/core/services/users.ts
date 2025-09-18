@@ -15,7 +15,7 @@ interface GetAllResponse {
   providedIn: 'root'
 })
 export class UsersService {
-  private readonly base = 'https://peticiones.online/api/users';
+  private readonly urlAPI = 'https://peticiones.online/api/users';
 
   constructor(private http: HttpClient) {}
 
@@ -23,17 +23,13 @@ export class UsersService {
     const params: any = {};
     if (page) params.page = page;
     if (per_page) params.per_page = per_page;
-    return this.http.get<GetAllResponse>(this.base, { params });
+    return this.http.get<GetAllResponse>(this.urlAPI, { params });
   }
 
-  getById(id: string | number): Observable<User> {
-    return this.http.get<any>(`${this.base}/${id}`).pipe(
+  getById(_id: string | number): Observable<User> {
+    return this.http.get<any>(`${this.urlAPI}/${_id}`).pipe(
       map((res) => {
         const user = res?.data ?? res?.result ?? res;
-        // Normaliza el campo id si viene como _id
-        if (user && user._id && !user.id) {
-          user.id = user._id;
-        }
         return user;
       })
     );
@@ -41,14 +37,14 @@ export class UsersService {
   }
 
   create(payload: CreateUserRequest): Observable<User> {
-    return this.http.post<User>(this.base, payload);
+    return this.http.post<User>(this.urlAPI, payload);
   }
 
-  update(id: string | number, payload: UpdateUserRequest): Observable<User> {
-    return this.http.put<User>(`${this.base}/${id}`, payload);
+  update(_id: string | number, payload: UpdateUserRequest): Observable<User> {
+    return this.http.put<User>(`${this.urlAPI}/${_id}`, payload);
   }
 
-  delete(id: number): Observable<User> {
-    return this.http.delete<User>(`${this.base}/${id}`);
+  delete(id: string | number): Observable<User> {
+    return this.http.delete<User>(`${this.urlAPI}/${id}`);
   }
 }

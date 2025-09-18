@@ -3,8 +3,8 @@
   height: 120px;
   border-radius: 999px;
   object-fit: cover;
-  background: #2f6bff; /* aro azul del mockup */
-  padding: 6px;        /* margen para simular aro */
+  background: #2f6bff; 
+  padding: 6px;        
 }
 
 .user-avatar-lg {
@@ -17,4 +17,4 @@
 }
 
 .card { border: 1px solid #e9ecef; }
-.navbar .nav-link.active { color: #d63384; } /* rosa del mockup si quieres */
+.navbar .nav-link.active { color: #d63384; } 

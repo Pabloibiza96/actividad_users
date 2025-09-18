@@ -9,7 +9,7 @@ import { User } from '../../core/interfaces/user.model';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './user-detail.html',
-  styleUrls: ['./user-detail.scss']
+  styleUrls: ['./user-detail.css']
 })
 export class UserDetailComponent implements OnInit {
   user?: User;
@@ -42,13 +42,20 @@ export class UserDetailComponent implements OnInit {
   }
 
   goBack(): void { this.router.navigate(['/home']); }
-  goEdit(): void { if (this.user) this.router.navigate(['/updateuser', this.user.id]); }
+  goEdit(): void { if (this.user) this.router.navigate(['/updateuser', this.user._id]); }
   confirmDelete(): void {
     if (!this.user) return;
     if (!confirm(`¿Eliminar a ${this.user.first_name}?`)) return;
-    this.usersSvc.delete(this.user.id).subscribe({
-      next: () => this.goBack(),
-      error: () => alert('No se pudo eliminar')
+    this.usersSvc.delete(this.user._id || this.user.id).subscribe({
+      next: (response) => {
+        console.log('[detail-delete] Respuesta de la API:', response);
+        alert('Usuario eliminado');
+        this.goBack();
+      },
+      error: (err) => {
+        console.error('[detail-delete] Error de la API:', err);
+        alert('No se pudo eliminar');
+      }
     });
   }
 }

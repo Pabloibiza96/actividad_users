@@ -34,10 +34,10 @@
 
     <div>
       <label class="form-label">Imagen Usuario</label>
-      <input type="text" class="form-control" formControlName="username">
-      @if (form.get('username')?.touched && form.get('username')?.invalid) {
+      <input type="text" class="form-control" formControlName="image">
+      @if (form.get('image')?.touched && form.get('image')?.invalid) {
         <div class="form-text text-danger">
-          Introduzca una imágen
+          Introduzca una imagen
         </div>
       }
     </div>

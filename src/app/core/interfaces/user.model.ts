@@ -19,6 +19,6 @@ export interface CreateUserRequest {
 export interface UpdateUserRequest {
   first_name?: string;
   last_name?: string;
-  username?: string;
   email?: string;
+  image?: string;
 }

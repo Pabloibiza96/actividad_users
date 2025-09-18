@@ -7,7 +7,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss",
+          "style": "css",
           "standalone": false
         },
         "@schematics/angular:directive": {
@@ -29,7 +29,7 @@
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
+            "inlineStyleLanguage": "css",
             "assets": [
               {
                 "glob": "**/*",
@@ -37,7 +37,7 @@
               }
             ],
            "styles": [
-            "src/styles.scss",
+            "src/styles.css",
             "node_modules/bootstrap/dist/css/bootstrap.min.css",
             "node_modules/bootstrap-icons/font/bootstrap-icons.css"
           ]
@@ -89,7 +89,7 @@
               "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
+            "inlineStyleLanguage": "css",
             "assets": [
               {
                 "glob": "**/*",
@@ -97,7 +97,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.css"
             ]
           }
         }

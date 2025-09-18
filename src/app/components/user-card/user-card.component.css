@@ -1,0 +1,23 @@
+.user-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  object-fit: cover;
+  background: #2f6bff;
+  padding: 6px;
+}
+
+.col {
+  display: flex;
+}
+
+.card {
+  border: 1px solid #e9ecef;
+  min-width: 250px;
+  max-width: 100%;
+  flex: 1 1 0;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

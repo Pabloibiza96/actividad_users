@@ -1,0 +1,18 @@
+<div class="col">
+  <div class="card h-100 shadow-sm text-center p-3 d-flex flex-column">
+    <img [src]="user.image" [alt]="user.username" class="user-avatar mx-auto mb-3">
+    <h6 class="fw-semibold mb-0">{{ user.first_name }} {{ user.last_name }}</h6>
+    <small class="text-muted d-block mb-3">{{ user.email }}</small>
+    <div class="d-flex justify-content-center gap-3 fs-5 mt-auto">
+      <a [routerLink]="['/user', user._id]" class="text-reset" title="Ver detalle">
+        <i class="bi bi-search"></i>
+      </a>
+      <a [routerLink]="['/updateuser', user._id]" class="text-reset" title="Actualizar">
+        <i class="bi bi-arrow-repeat"></i>
+      </a>
+      <button class="btn btn-link text-reset p-0" (click)="onDelete()" title="Borrar">
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+  </div>
+</div>

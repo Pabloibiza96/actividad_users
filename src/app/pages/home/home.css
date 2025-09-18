@@ -1,10 +1,18 @@
+.row {
+  gap: 1.5rem;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
 .user-avatar {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  background: #2f6bff;
+  
   padding: 6px;
-  border: 3px solid white; /* separa el aro */
+  border: 3px solid white; 
   box-shadow: 0 0 4px rgba(0,0,0,.1);
 }
