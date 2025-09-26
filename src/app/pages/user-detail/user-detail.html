@@ -1,29 +1,33 @@
 @if (user; as u) {
-  <div class="container py-4">
-    <div class="row g-4 align-items-start">
-      <div class="col-12 col-md-5 text-center">
-        <img [src]="u.image" [alt]="u.username" class="user-avatar-lg">
-      </div>
+<div class="container py-4">
+  <div class="row g-4 align-items-start">
+    <div class="col-12 col-md-5 text-center">
+      <img [src]="u.image" [alt]="u.username" class="user-avatar-lg" />
+    </div>
 
-      <div class="col-12 col-md-7">
-        <h3 class="mb-1">{{ u.first_name }}</h3>
-        <h3 class="text-muted fw-normal mb-3">{{ u.last_name }}</h3>
+    <div class="col-12 col-md-7">
+      <h3 class="mb-1">{{ u.first_name }}</h3>
+      <h3 class="text-muted fw-normal mb-3">{{ u.last_name }}</h3>
 
-        <p class="mb-1"><strong>Nombre Usuario:</strong> {{ u.email }}</p>
-        <p class="mb-4"><strong>Email:</strong> {{ u.email }}</p>
+      <p class="mb-1"><strong>Nombre Usuario:</strong> {{ u.email }}</p>
+      <p class="mb-4"><strong>Email:</strong> {{ u.email }}</p>
 
-        <div class="d-flex flex-wrap gap-2">
-          <button class="btn btn-outline-danger" (click)="confirmDelete()">Eliminar</button>
-          <button class="btn btn-outline-primary" (click)="goEdit()">Actualizar</button>
-          <button class="btn btn-outline-secondary" (click)="goBack()">Volver a listado</button>
-        </div>
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-danger" (click)="confirmDelete()">
+          Eliminar
+        </button>
+        <button class="btn btn-outline-primary" (click)="goEdit()">
+          Actualizar
+        </button>
+        <button class="btn btn-outline-secondary" (click)="goBack()">
+          Volver a listado
+        </button>
       </div>
     </div>
   </div>
-}
-
-@if (loading) {
-  <div class="container py-4">
-    <div class="alert alert-info">Cargando...</div>
-  </div>
+</div>
+} @if (loading) {
+<div class="container py-4">
+  <div class="alert alert-info">Cargando...</div>
+</div>
 }

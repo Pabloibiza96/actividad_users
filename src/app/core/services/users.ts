@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { User, CreateUserRequest, UpdateUserRequest } from '../interfaces/user.model';
+import {
+  User,
+  CreateUserRequest,
+  UpdateUserRequest,
+} from '../interfaces/user.model';
 
 interface GetAllResponse {
   page: number;
   per_page: number;
   total: number;
   total_pages: number;
-  results: User[];  
+  results: User[];
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
   private readonly urlAPI = 'https://peticiones.online/api/users';
@@ -33,18 +37,31 @@ export class UsersService {
         return user;
       })
     );
-
   }
 
   create(payload: CreateUserRequest): Observable<User> {
-    return this.http.post<User>(this.urlAPI, payload);
+    return this.http.post<any>(this.urlAPI, payload).pipe(
+      map((res) => {
+        const user = res?.data ?? res?.result ?? res;
+        return user;
+      })
+    );
   }
 
   update(_id: string | number, payload: UpdateUserRequest): Observable<User> {
-    return this.http.put<User>(`${this.urlAPI}/${_id}`, payload);
+    return this.http.put<any>(`${this.urlAPI}/${_id}`, payload).pipe(
+      map((res) => {
+        const user = res?.data ?? res?.result ?? res;
+        return user;
+      })
+    );
   }
 
-  delete(id: string | number): Observable<User> {
-    return this.http.delete<User>(`${this.urlAPI}/${id}`);
+  delete(id: string | number): Observable<any> {
+    return this.http.delete<any>(`${this.urlAPI}/${id}`).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 }

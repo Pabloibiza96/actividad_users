@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   templateUrl: './user-card.component.html',
   styleUrls: ['./user-card.component.css'],
-  imports: [RouterLink]
+  imports: [RouterLink],
 })
 export class UserCardComponent {
   @Input() user: any;

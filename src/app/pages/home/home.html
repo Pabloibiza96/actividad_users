@@ -1,45 +1,61 @@
-<div class="container py-4">
- 
-
+<div
+  class="container py-4 d-flex flex-column justify-content-center align-items-center"
+  style="min-height: 60vh"
+>
   @if (loading) {
+  <div
+    class="w-100 d-flex flex-column justify-content-center align-items-center"
+    style="min-height: 40vh"
+  >
     <div class="alert alert-info">Cargando...</div>
-  }
-
-  <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
+  </div>
+  } @if (!loading && !users.length) {
+  <div
+    class="w-100 d-flex flex-column justify-content-center align-items-center"
+    style="min-height: 40vh"
+  >
+    <div class="alert alert-warning">No se encontraron usuarios.</div>
+  </div>
+  } @if (!loading && users.length) {
+  <div
+    class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center w-100"
+  >
     @for (u of users; track u._id) {
     <app-user-card [user]="u" (delete)="confirmDelete(u)"></app-user-card>
     }
   </div>
-    @if (totalPages > 1) {
-    <nav class="d-flex justify-content-center mt-4">
-  <ul class="pagination pagination-sm mb-0">
-    <!-- Anterior -->
-    <li class="page-item" [class.disabled]="page === 1">
-      <button class="page-link" (click)="loadUsers(page - 1)" [disabled]="page === 1">
-        Anterior
-      </button>
-    </li>
-
-    <!-- Números -->
-    @for (_ of [].constructor(totalPages); let i = $index; track i) {
-      <li
-        class="page-item"
-        [class.active]="page === i + 1"
-      >
+  @if (totalPages > 1) {
+  <nav class="d-flex justify-content-center mt-4">
+    <ul class="pagination pagination-sm mb-0">
+      <!-- Anterior -->
+      <li class="page-item" [class.disabled]="page === 1">
+        <button
+          class="page-link"
+          (click)="loadUsers(page - 1)"
+          [disabled]="page === 1"
+        >
+          Anterior
+        </button>
+      </li>
+      <!-- Números -->
+      @for (_ of [].constructor(totalPages); let i = $index; track i) {
+      <li class="page-item" [class.active]="page === i + 1">
         <button class="page-link" (click)="loadUsers(i + 1)">
           {{ i + 1 }}
         </button>
       </li>
-    }
-
-    <!-- Siguiente -->
-    <li class="page-item" [class.disabled]="page === totalPages">
-      <button class="page-link" (click)="loadUsers(page + 1)" [disabled]="page === totalPages">
-        Siguiente
-      </button>
-    </li>
-  </ul>
-    </nav>
-    }
+      }
+      <!-- Siguiente -->
+      <li class="page-item" [class.disabled]="page === totalPages">
+        <button
+          class="page-link"
+          (click)="loadUsers(page + 1)"
+          [disabled]="page === totalPages"
+        >
+          Siguiente
+        </button>
+      </li>
+    </ul>
+  </nav>
+  } }
 </div>
-
